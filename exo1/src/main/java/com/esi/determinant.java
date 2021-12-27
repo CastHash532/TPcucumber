@@ -1,11 +1,9 @@
 package com.esi;
 
-
-
 public class determinant {
     
     //function to calculate determinant of matrix
-    public static double Determinant(double[][] matrix) {
+    public static double Determinant(int[][] matrix) {
         double det = 0;
         if (matrix.length == 1) {
             det = matrix[0][0];
@@ -13,7 +11,7 @@ public class determinant {
             det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
         } else {
             for (int i = 0; i < matrix.length; i++) {
-                double[][] subMatrix = new double[matrix.length - 1][matrix.length - 1];
+                int[][] subMatrix = new int[matrix.length - 1][matrix.length - 1];
                 for (int j = 1; j < matrix.length; j++) {
                     for (int k = 0; k < matrix.length; k++) {
                         if (k < i) {
