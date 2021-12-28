@@ -1,10 +1,13 @@
 # Commands to start on workspace startup
 tasks:
+  - name: exo1 setup
+    init: cd exo1 && mvn clean install
+
   - name: Docker setup
     before: docker-compose pull
     init: cd exo2 && docker-compose up
 
-  - name: Dependencies setup
+  - name: exo2 Dependencies setup
     init: cd exo2 && mvn dependency:resolve 
 
 # Ports to expose on workspace startup

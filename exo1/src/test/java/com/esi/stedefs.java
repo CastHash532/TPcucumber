@@ -1,31 +1,35 @@
-package com.esi.stepdefs;
+package com.esi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.Test;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
+
+
 import com.esi.determinant;
 
-public class determinantTest {
+public class stedefs {
 
     int[][] matrix;
     double result;
 
-    @Given("une matrice {int}x{int}")
+    @Given("^une matrice (\\d+)x(\\d+) :$")
     public void a_matrix_x(int row, int col) {
         matrix = new int[row][col];
     }
 
-    @And("^les valeurs sont:$")
-    public void a_matrix_with_values(io.cucumber.datatable.DataTable dataTable) throws Throwable {
-        int[][] matrix = new int[dataTable.asMaps().size()][dataTable.asMaps().get(0).size()];
-        for (int i = 0; i < dataTable.asMaps().size(); i++) {
-            for (int j = 0; j < dataTable.asMaps().get(0).size(); j++) {
-                matrix[i][j] = Integer.parseInt(dataTable.asMaps().get(i).get(j));
+    @And("^les valeurs sont :$")
+    public void a_matrix_with_values(List<List<Integer>> dataTable) throws Throwable {
+        for (int i = 0; i < dataTable.size(); i++) {
+            for (int j = 0; j < dataTable.get(i).size(); j++) {
+                matrix[i][j] = dataTable.get(i).get(j);
             }
         }
     }
@@ -35,7 +39,7 @@ public class determinantTest {
         result = determinant.Determinant(matrix);
     }
 
-    @Then("^le determinant est : {int}$")
+    @Then("^le determinant est :(\\d+)$")
     public void the_result_is(int expected) throws Throwable {
         assertEquals(expected, result, 0.001);
     }
