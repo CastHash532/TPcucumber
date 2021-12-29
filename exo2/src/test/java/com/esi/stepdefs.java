@@ -7,6 +7,7 @@ import io.cucumber.java.en.And;
 
 import static org.junit.Assert.*;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.List;
@@ -32,22 +33,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class stepdefs {
     
 
-	static WebDriver driver;
 	static ChromeOptions chromeOptions = new ChromeOptions();
 	static FirefoxOptions firefoxOptions = new FirefoxOptions();
 	static EdgeOptions edgeOptions = new EdgeOptions();
+    static URL url;
+    static WebDriver driver;
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        URL url = new URL("http://localhost:4444");
-		driver = new RemoteWebDriver(url, chromeOptions);
-    }
-
+    
     @Given("^I am on the ebay home page$")
-    public void i_am_on_the_ebay_home_page() {
+    public void i_am_on_the_ebay_home_page() throws Exception {
+        url = new URL("http://localhost:4444");
+        driver = new RemoteWebDriver(url, chromeOptions);
         driver.get("https://www.ebay.com");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        assertEquals("eBay", driver.getTitle());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));        
     }
 
     @When("^I set the search type to \"([^\"]*)\"$")
