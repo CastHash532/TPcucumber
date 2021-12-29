@@ -12,4 +12,6 @@ reports available in `src/reports/cucumber-html-report.html`
   
   
 ## Exo 2  
-implemented but facing issues
+implemented but facing issues (captcha when adding product to cart)  
+  
+![Report Screenshot](exo2/reports/report.png)  

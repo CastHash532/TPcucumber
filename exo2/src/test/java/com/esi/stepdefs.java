@@ -40,11 +40,11 @@ public class stepdefs {
     static WebDriver driver;
 
     
-    @Given("^I am on the ebay home page$")
-    public void i_am_on_the_ebay_home_page() throws Exception {
+    @Given("^I am on the page: \"([^\"]*)\"$")
+    public void i_am_on_the_ebay_home_page(String arg1) throws Exception {
         url = new URL("http://localhost:4444");
         driver = new RemoteWebDriver(url, chromeOptions);
-        driver.get("https://www.ebay.com");
+        driver.get(arg1);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));        
     }
 
@@ -66,15 +66,15 @@ public class stepdefs {
         assertTrue(result.isDisplayed());
     }
 
-    @Then("^I should see the results for \"([^\"]*)\"$")
+    @Then("^I should see \"([^\"]*)\" in the search results$")
     public void i_should_see_the_results_for(String arg1) {
         WebElement result = driver.findElement(By.cssSelector("#srp-river-results > ul > li:nth-child(2) > div > div.s-item__info.clearfix > a"));
         assertTrue(result.isDisplayed());
         assertEquals(arg1, result.getText());
     }
 
-    @When("^I am on the product page$")
-    public void i_am_on_the_product_page() {
+    @When("^I am on the product page with title: \"([^\"]*)\"$")
+    public void i_am_on_the_product_page(String arg1) {
         WebElement result = driver.findElement(By.cssSelector("#srp-river-results > ul > li:nth-child(2) > div > div.s-item__info.clearfix > a"));
         String mainWindow = driver.getWindowHandle();
         result.click();
@@ -85,10 +85,10 @@ public class stepdefs {
             }
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        assertEquals("eBay", driver.getTitle());
+        assertEquals(arg1, driver.getTitle());
 
     }    
-    @And("^I add the product to the cart$")
+    @And("^add the product to the cart$")
     public void i_add_the_product_to_the_cart() {
         WebElement addToCart = driver.findElement(By.cssSelector("#atcRedesignId_btn"));
 		addToCart.click();
